@@ -252,6 +252,7 @@ plt.show()
 
 # Function to calculate the Hamming distance between two strings
 
+
 def hamming_distance(str1, str2):
     # Pad the shorter string with spaces to make both strings of equal length
     max_len = max(len(str1), len(str2))
@@ -269,5 +270,9 @@ distance = hamming_distance(slack_username, linkedin_handle)
 print(f"Hamming Distance: {distance}")
 
 # ==============================================
-# Github Link:
+# Github Link: 
 # ==============================================
+
+j_adams_nyaata_github_link = "https://github.com/John-Adams-N/HackBio-Biocoding"
+
+print(f"Github Link: {j_adams_nyaata_github_link}")
