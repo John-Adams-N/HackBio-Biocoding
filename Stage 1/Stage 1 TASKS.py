@@ -1,7 +1,9 @@
 # ==============================================
 # Section 1: DNA to Protein Translation
 # ==============================================
+
 # Standard genetic code (codon to amino acid mapping)
+
 CODON_TABLE = {
     'ATA': 'I', 'ATC': 'I', 'ATT': 'I', 'ATG': 'M',
     'ACA': 'T', 'ACC': 'T', 'ACG': 'T', 'ACT': 'T',
@@ -20,6 +22,7 @@ CODON_TABLE = {
     'TAC': 'Y', 'TAT': 'Y', 'TAA': '_', 'TAG': '_',
     'TGC': 'C', 'TGT': 'C', 'TGA': '_', 'TGG': 'W'
 }
+# Function to translate DNA sequence to protein sequence
 
 def translate_dna_to_protein(dna_sequence):
     # Step 1: Convert DNA to uppercase
@@ -47,13 +50,19 @@ protein_sequence = translate_dna_to_protein(dna_sequence)
 print(f"DNA: {dna_sequence}")
 print(f"Protein: {protein_sequence}")
 
+# ============================================== 
+# Initialiation of required libraries
+# ==============================================
+
 import random
-import pandas as pd
-import matplotlib.pyplot as plt
+import pandas as pd # type: ignore
+import matplotlib.pyplot as plt # type: ignore
 
 # ==============================================
 # Section 2: Logistic Population Growth
 # ==============================================
+
+# Function to simulate logistic growth with randomized lag and exponential phases
 
 def logistic_growth(K, P0, r, total_time, lag_mean, lag_std, exp_mean, exp_std):
     """
@@ -118,6 +127,8 @@ for t, od in zip(time, population):
 # Section 3: Generate a DataFrame with 100 Different Growth Curves
 # ==============================================
 
+# Function to generate multiple logistic growth curves and store them in a DataFrame
+
 def generate_growth_curves(num_curves, K, P0, r, total_time, lag_mean, lag_std, exp_mean, exp_std):
     """
     Generates multiple logistic growth curves and stores them in a DataFrame.
@@ -171,9 +182,7 @@ growth_df = generate_growth_curves(100, K, P0, r, total_time, lag_mean, lag_std,
 # Display the first few rows of the DataFrame
 print(growth_df.head())
 
-# ==============================================
-# Section 4: Integration with Task 3
-# ==============================================
+# Function to determine the time to reach 80% of the carrying capacity
 
 def time_to_80_percent(time, population, K):
     """
@@ -229,10 +238,36 @@ plt.ylabel('Population (OD)')
 plt.title('Logistic Growth Curves')
 plt.show()
 
-# Plot histogram of times to reach 80% of carrying capacity
+# Plot histogram of times to reach 80% of carrying capacity for better visualization
 plt.figure(figsize=(10, 6))
 plt.hist([t for t in times_to_80_percent if t is not None], bins=20, edgecolor='black')
 plt.xlabel('Time to reach 80% of carrying capacity')
 plt.ylabel('Frequency')
 plt.title('Histogram of Times to Reach 80% of Carrying Capacity')
 plt.show()
+
+# ==============================================
+# Section 4: Calculating The Hamming Distance
+# ==============================================
+
+# Function to calculate the Hamming distance between two strings
+
+def hamming_distance(str1, str2):
+    # Pad the shorter string with spaces to make both strings of equal length
+    max_len = max(len(str1), len(str2))
+    str1 = str1.ljust(max_len)
+    str2 = str2.ljust(max_len)
+    
+    # Calculate the Hamming distance
+    distance = sum(1 for x, y in zip(str1, str2) if x != y)
+    return distance
+
+# Example usage
+slack_username = "Adams"
+linkedin_handle = "J.Adams Nyaata"
+distance = hamming_distance(slack_username, linkedin_handle)
+print(f"Hamming Distance: {distance}")
+
+# ==============================================
+# Github Link:
+# ==============================================
