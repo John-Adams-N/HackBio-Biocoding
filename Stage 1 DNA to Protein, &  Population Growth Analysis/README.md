@@ -1,18 +1,21 @@
-Stage-1: HackBio Biocoding Internship
+# Stage-1: HackBio Biocoding Internship
+
 Task Description
 The goal of Stage-1 was to complete the assigned bioinformatics task, implement the solution in a script, and upload the results to the repository.
 
-Steps Completed
-Implemented the solution in script.py using Python.
+Steps Completed:
+
+Implemented the solution in Stage 1 Implementation.py using Python.
 Processed and analyzed the provided dataset.
 Generated the required output files.
 Uploaded the solution files to the stage-one folder.
 Updated the README to document the process.
-Files Included
-STAGE 1 TASKS.py – Contains the implementation of the solution.
+
+Files Included:
+Stage 1 Implementation.py – Contains the implementation of the solution.
 README.md – Documents the task and workflow.
 
-Link to RepositorySection
+Section 1: DNA to Protein Translation
 
 This section of the code translates a given DNA sequence into a protein sequence using the standard genetic code.
 
