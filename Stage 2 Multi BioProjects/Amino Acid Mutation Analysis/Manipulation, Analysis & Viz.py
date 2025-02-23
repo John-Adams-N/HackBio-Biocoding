@@ -30,8 +30,8 @@ try:
 except FileNotFoundError as e:
     print(e)
     print("Loading datasets from URLs instead...")
-    sift_url = "https://raw.githubusercontent.com/John-Adams-N/HackBio-Biocoding/main/Stage%202/sift_dataset.csv"
-    foldx_url = "https://raw.githubusercontent.com/John-Adams-N/HackBio-Biocoding/main/Stage%202/foldx_dataset.csv"
+    sift_url = "Stage 2 Multi BioProjects/Amino Acid Mutation Analysis/sift_dataset.csv"
+    foldx_url = "Stage 2 Multi BioProjects/Amino Acid Mutation Analysis/foldx_dataset.csv"
     sift_df = pd.read_csv(sift_url)
     foldx_df = pd.read_csv(foldx_url)
 
