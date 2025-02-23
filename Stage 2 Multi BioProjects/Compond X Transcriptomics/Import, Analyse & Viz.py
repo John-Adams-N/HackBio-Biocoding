@@ -134,3 +134,53 @@ print("\nTop 5 Downregulated Genes:\n", downregulated_genes.head())
 # Save results
 upregulated_genes.to_csv(os.path.join(script_dir, "upregulated_genes.csv"), index=False)
 downregulated_genes.to_csv(os.path.join(script_dir, "downregulated_genes.csv"), index=False)
+print("\nSignificant genes saved successfully!")
+
+
+# 3.1 : Visualizing Significant Genes
+# ==============================================
+
+# 3.1.1: Bar Plot of Top 20 Upregulated and Downregulated Genes
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Select top 20 upregulated and downregulated genes
+top_up = upregulated_genes.nlargest(20, "log2FoldChange")
+top_down = downregulated_genes.nsmallest(20, "log2FoldChange")
+
+# Combine and sort for better visualization
+top_genes = pd.concat([top_up, top_down]).sort_values(by="log2FoldChange")
+
+# Set figure size
+plt.figure(figsize=(12, 6))
+
+# Bar plot
+sns.barplot(y=top_genes["Gene"], x=top_genes["log2FoldChange"], 
+            palette=["red" if x > 0 else "blue" for x in top_genes["log2FoldChange"]])
+
+# Labels and styling
+plt.axvline(0, color="black", linestyle="--", linewidth=1)  # Reference line at 0
+plt.xlabel("Log2 Fold Change", fontsize=14)
+plt.ylabel("Gene", fontsize=14)
+plt.title("Top 20 Upregulated and Downregulated Genes (Bar Plot)", fontsize=16)
+plt.grid(axis="x", linestyle="--", alpha=0.5)
+
+plt.show()
+
+
+# 3.1.2: Density Plot of Log2 Fold Changes Distribution
+# Density Plot
+plt.figure(figsize=(10, 6))
+sns.kdeplot(df["log2FoldChange"], fill=True, color="purple", alpha=0.6)
+
+# Mark significant thresholds
+plt.axvline(-1, color="blue", linestyle="--", label="Downregulation Threshold (-1)")
+plt.axvline(1, color="red", linestyle="--", label="Upregulation Threshold (+1)")
+
+# Labels and title
+plt.xlabel("Log2 Fold Change", fontsize=14)
+plt.ylabel("Density", fontsize=14)
+plt.title("Distribution of Log2 Fold Changes", fontsize=16)
+plt.legend()
+
+plt.show()
