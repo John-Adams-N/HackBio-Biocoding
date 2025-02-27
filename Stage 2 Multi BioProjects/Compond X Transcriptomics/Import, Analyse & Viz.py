@@ -52,7 +52,6 @@ def download_and_process_dataset(url, save_path):
 # Run the function
 download_and_process_dataset(dataset_url, csv_filename)
 
-
 # ==============================================
 # 1.2:  Extracting & Loading Datasets from CSV Files
 # Ensuring Data Consistency   
@@ -84,7 +83,7 @@ print("\nColumn names after formatting:")
 print(df.columns)
 
 # ==============================================
-# 2:  Generate a Volcano plot   
+# 2:  Data Preprocessing & Exploration  
 # ==============================================
 
 import matplotlib.pyplot as plt
@@ -96,6 +95,31 @@ df["neg_log10_pvalue"] = -np.log10(df["pvalue"])
 # Define significance thresholds
 upregulated = (df["log2FoldChange"] > 1) & (df["pvalue"] < 0.01)
 downregulated = (df["log2FoldChange"] < -1) & (df["pvalue"] < 0.01)
+
+# ==============================================
+# 3:  Filter and Save Significant Genes   
+# ==============================================
+
+# Filter upregulated genes (Log2FC > 1 & p-value < 0.01)
+upregulated_genes = df[upregulated]
+
+# Filter downregulated genes (Log2FC < -1 & p-value < 0.01)
+downregulated_genes = df[downregulated]
+
+# Display top genes
+print("\nTop 5 Upregulated Genes:\n", upregulated_genes.head())
+print("\nTop 5 Downregulated Genes:\n", downregulated_genes.head())
+
+# Save results
+upregulated_genes.to_csv(os.path.join(script_dir, "upregulated_genes.csv"), index=False)
+downregulated_genes.to_csv(os.path.join(script_dir, "downregulated_genes.csv"), index=False)
+print("\nSignificant genes saved successfully!")
+
+# ==============================================
+# 4: Visualizing Significant Genes
+# ==============================================
+
+# 4.1: Volcano Plot with Significance Thresholds
 
 # Assign colors based on significance
 df["color"] = "gray"  # Default: Non-significant
@@ -117,30 +141,7 @@ plt.legend(["Significant (p-value < 0.01)", "Upregulated (log2FC > 1)", "Downreg
 plt.legend(["p-value < 0.01", "log2FC > 1", "log2FC < -1"], loc="upper right")
 plt.show()
 
-# ==============================================
-# 3:  Filter and Save Significant Genes   
-# ==============================================
-
-# Filter upregulated genes (Log2FC > 1 & p-value < 0.01)
-upregulated_genes = df[upregulated]
-
-# Filter downregulated genes (Log2FC < -1 & p-value < 0.01)
-downregulated_genes = df[downregulated]
-
-# Display top genes
-print("\nTop 5 Upregulated Genes:\n", upregulated_genes.head())
-print("\nTop 5 Downregulated Genes:\n", downregulated_genes.head())
-
-# Save results
-upregulated_genes.to_csv(os.path.join(script_dir, "upregulated_genes.csv"), index=False)
-downregulated_genes.to_csv(os.path.join(script_dir, "downregulated_genes.csv"), index=False)
-print("\nSignificant genes saved successfully!")
-
-
-# 3.1 : Visualizing Significant Genes
-# ==============================================
-
-# 3.1.1: Bar Plot of Top 20 Upregulated and Downregulated Genes
+# 4.2: Bar Plot of Top 20 Upregulated and Downregulated Genes
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -164,23 +165,5 @@ plt.xlabel("Log2 Fold Change", fontsize=14)
 plt.ylabel("Gene", fontsize=14)
 plt.title("Top 20 Upregulated and Downregulated Genes (Bar Plot)", fontsize=16)
 plt.grid(axis="x", linestyle="--", alpha=0.5)
-
-plt.show()
-
-
-# 3.1.2: Density Plot of Log2 Fold Changes Distribution
-# Density Plot
-plt.figure(figsize=(10, 6))
-sns.kdeplot(df["log2FoldChange"], fill=True, color="purple", alpha=0.6)
-
-# Mark significant thresholds
-plt.axvline(-1, color="blue", linestyle="--", label="Downregulation Threshold (-1)")
-plt.axvline(1, color="red", linestyle="--", label="Upregulation Threshold (+1)")
-
-# Labels and title
-plt.xlabel("Log2 Fold Change", fontsize=14)
-plt.ylabel("Density", fontsize=14)
-plt.title("Distribution of Log2 Fold Changes", fontsize=16)
-plt.legend()
 
 plt.show()
