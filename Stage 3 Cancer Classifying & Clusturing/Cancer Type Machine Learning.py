@@ -5,62 +5,73 @@ import pandas as pd
 script_dir = os.path.dirname(os.path.abspath(__file__))
 csv_filename = os.path.join(script_dir, "cancer_transcriptomics_cleaned.csv")
 
-def load_and_process_dataset(filename):
+print(f"🔍 Looking for file at: {csv_filename}")
+
+def load_and_debug_dataset(filename):
     try:
         if not os.path.exists(filename):
             raise FileNotFoundError(f"❌ Error: '{filename}' not found. Please check the file path.")
 
         # Load dataset
-        df = pd.read_csv(filename, dtype=str)  # Load everything as string initially
+        df = pd.read_csv(filename)
         print(f"✅ Dataset successfully loaded from: {filename}")
         print(f"📊 Dataset Shape: {df.shape[0]} rows, {df.shape[1]} columns")
 
+        # Inspect first few rows
+        print("\n🔍 Raw Data Sample (First 5 rows):")
+        print(df.head())
+
         # Standardize column names
         df.columns = df.columns.str.strip().str.lower()
-
-        # Convert categorical column (diagnosis) to numeric
-        if 'diagnosis' in df.columns:
-            df['diagnosis'] = df['diagnosis'].map({'M': 1, 'B': 0})
-            print("🔄 Converted 'diagnosis' column to numeric (M → 1, B → 0)")
-
-        # Check for missing values
-        missing_values = df.isnull().sum()
-        if missing_values.any():
-            print("\n⚠️ Missing values detected, filling with column mean:")
-            print(missing_values[missing_values > 0])
-            df.fillna(df.mean(), inplace=True)
-
-        # Remove duplicate rows
-        duplicate_count = df.duplicated().sum()
-        if duplicate_count > 0:
-            print(f"\n⚠️ {duplicate_count} duplicate rows found. Removing duplicates.")
-            df.drop_duplicates(inplace=True)
-
-        # Identify columns with non-numeric data
-        non_numeric_columns = []
-        for col in df.columns:
-            try:
-                df[col] = pd.to_numeric(df[col], errors='raise')
-            except ValueError:
-                non_numeric_columns.append(col)
-
-        if non_numeric_columns:
-            print(f"\n⚠️ Warning: The following columns contain non-numeric values: {', '.join(non_numeric_columns)}")
-            print("🔍 Inspecting first problematic values per column:")
-            for col in non_numeric_columns:
-                print(f"  ➡️ Column: {col}, First problematic value: {df[col].iloc[0]}")
-
-        # Convert all valid columns to numeric
-        df = df.apply(pd.to_numeric, errors='coerce')
-
-        # Final check
-        print("\n✅ Data processing complete. Ready for analysis.")
+        
+        # Drop 'id' column if it exists (since it's not useful for ML)
+        if 'id' in df.columns:
+            df = df.drop(columns=['id'])
+        
+        # Convert numeric columns (excluding diagnosis) to proper types
+        numeric_cols = df.columns.difference(['diagnosis'])
+        df[numeric_cols] = df[numeric_cols].apply(pd.to_numeric, errors='coerce')
+        
+        # Display dataset info after conversion
+        print("\n📌 Dataset Info After Processing:")
+        print(df.info())
 
         return df
 
+    except FileNotFoundError as fnf_error:
+        print(fnf_error)
+        return None
+    except pd.errors.EmptyDataError:
+        print("❌ Error: The file is empty. Please provide a valid dataset.")
+        return None
+    except pd.errors.ParserError:
+        print("❌ Error: The file could not be parsed. Please check the file format.")
+        return None
     except Exception as e:
         print(f"❌ An error occurred while processing the dataset: {e}")
         return None
 
-# Load and process dataset
-df = load_and_process_dataset(csv_filename)
+# Run the debugging function
+df = load_and_debug_dataset(csv_filename)
+
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+
+# 1. Data Preprocessing (Example)
+# (Handle missing values, encode 'diagnosis', scale features)
+
+# 2. Data Splitting
+X = df.drop('diagnosis', axis=1) # Features
+y = df['diagnosis'] # Target
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# 3. Model Selection and Training
+model = LogisticRegression()
+model.fit(X_train, y_train)
+
+# 4. Model Evaluation
+y_pred = model.predict(X_test)
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accuracy}")
