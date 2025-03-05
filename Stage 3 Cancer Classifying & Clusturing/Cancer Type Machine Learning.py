@@ -11,12 +11,13 @@ import os
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 from sklearn.cluster import KMeans
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, classification_report
 from sklearn.impute import SimpleImputer
 
 # Get the directory where the script is located
@@ -113,39 +114,80 @@ plt.show()
 # 4: Apply K-means Clustering
 # ==============================================
 
-kmeans = KMeans(n_clusters=2, random_state=42)
-kmeans.fit(X_pca)
-labels = kmeans.labels_
+# Determine optimal K using Elbow Method
+wcss = []
+for k in range(1, 11):
+    kmeans = KMeans(n_clusters=k, random_state=42, n_init=10)
+    kmeans.fit(X_scaled)
+    wcss.append(kmeans.inertia_)
+
+plt.figure(figsize=(8, 6))
+plt.plot(range(1, 11), wcss, marker='o', linestyle='--')
+plt.xlabel('Number of Clusters (K)')
+plt.ylabel('WCSS (Within-cluster Sum of Squares)')
+plt.title('Elbow Method for Optimal K')
+plt.show()
+
+# Apply K-means with optimal K (assuming 2 based on domain knowledge)
+kmeans = KMeans(n_clusters=2, random_state=42, n_init=10)
+clusters = kmeans.fit_predict(X_scaled)
 
 # ==============================================
 # 4.1: Visualize Clustering Result
 # ==============================================
 
 plt.figure(figsize=(8, 6))
-plt.scatter(X_pca[:, 0], X_pca[:, 1], c=labels, cmap='viridis', alpha=0.7)
+plt.scatter(X_pca[:, 0], X_pca[:, 1], c=clusters, cmap='viridis', alpha=0.7)
 plt.xlabel('Principal Component 1')
 plt.ylabel('Principal Component 2')
-plt.title('K-Means Clustering of Cancer Data (PCA Reduced)')
-plt.colorbar(label='Cluster Label')
+plt.title('K-Means Clustering on PCA-Reduced Data')
+plt.colorbar(label='Cluster')
 plt.show()
 
 # ==============================================
-# 5: Data Splitting
+# 5: Train-Test Split
+# ==============================================
+
+# ==============================================
+# 5.1: Model Selection 
 # ==============================================
 
 X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
 
 # ==============================================
-# 6: Model Selection and Training
+# 5.2: Model Training (Logistic Regression)
 # ==============================================
 
 model = LogisticRegression()
 model.fit(X_train, y_train)
 
 # ==============================================
-# 7: Model Evaluation
+# 5.4: Model Evaluation (Accuracy)
 # ==============================================
 
 y_pred = model.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
-print(f"Accuracy: {accuracy}")
+precision = precision_score(y_test, y_pred)
+recall = recall_score(y_test, y_pred)
+f1 = f1_score(y_test, y_pred)
+conf_matrix = confusion_matrix(y_test, y_pred)
+
+print(f"Accuracy: {accuracy:.4f}")
+print(f"Precision: {precision:.4f}")
+print(f"Recall: {recall:.4f}")
+print(f"F1 Score: {f1:.4f}")
+print("Confusion Matrix:")
+print(conf_matrix)
+print("Classification Report:")
+print(classification_report(y_test, y_pred))
+
+# Feature Importance
+feature_importance = abs(model.coef_[0])
+feature_names = df.drop(columns=['diagnosis']).columns
+
+plt.figure(figsize=(10, 6))
+sns.barplot(x=feature_importance, y=feature_names, palette='coolwarm')
+plt.xlabel('Feature Importance')
+plt.ylabel('Feature')
+plt.title('Feature Importance in Logistic Regression Model')
+plt.show()
