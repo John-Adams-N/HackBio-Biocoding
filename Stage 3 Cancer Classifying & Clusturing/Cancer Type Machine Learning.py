@@ -88,7 +88,7 @@ scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
 
 # ==============================================
-# 2.2: Apply PCA
+# 3: Apply PCA
 # ==============================================
 
 pca = PCA(n_components=2)
@@ -98,7 +98,7 @@ X_pca = pca.fit_transform(X_scaled)
 print("\n🔍 PCA Explained Variance:", pca.explained_variance_ratio_)
 
 # ==============================================
-# 2.3: Visualize PCA Result
+# 3.1: Visualize PCA Result
 # ==============================================
 
 plt.figure(figsize=(8, 6))
@@ -110,7 +110,7 @@ plt.colorbar(label='Diagnosis (0=Benign, 1=Malignant)')
 plt.show()
 
 # ==============================================
-# 2.4: Apply K-means Clustering
+# 4: Apply K-means Clustering
 # ==============================================
 
 kmeans = KMeans(n_clusters=2, random_state=42)
@@ -118,7 +118,7 @@ kmeans.fit(X_pca)
 labels = kmeans.labels_
 
 # ==============================================
-# 2.5: Visualize Clustering Result
+# 4.1: Visualize Clustering Result
 # ==============================================
 
 plt.figure(figsize=(8, 6))
@@ -130,20 +130,20 @@ plt.colorbar(label='Cluster Label')
 plt.show()
 
 # ==============================================
-# 2.6: Data Splitting
+# 5: Data Splitting
 # ==============================================
 
 X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
 
 # ==============================================
-# 2.7: Model Selection and Training
+# 6: Model Selection and Training
 # ==============================================
 
 model = LogisticRegression()
 model.fit(X_train, y_train)
 
 # ==============================================
-# 2.8: Model Evaluation
+# 7: Model Evaluation
 # ==============================================
 
 y_pred = model.predict(X_test)
