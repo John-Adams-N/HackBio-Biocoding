@@ -9,13 +9,14 @@ import numpy as np
 import os
 import pandas as pd
 import seaborn as sns
-from sklearn.cluster import KMeans
+from sklearn.cluster import KMeans, AgglomerativeClustering
 from sklearn.decomposition import PCA
 from sklearn.impute import SimpleImputer
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, f1_score, precision_score, recall_score
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, f1_score, precision_score, recall_score, silhouette_score, davies_bouldin_score
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+from scipy.cluster.hierarchy import dendrogram, linkage
 
 # Get the directory where the script is located
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -238,4 +239,45 @@ sns.barplot(x=feature_importance, y=feature_names, palette='coolwarm')
 plt.xlabel('Feature Importance')
 plt.ylabel('Feature')
 plt.title('Feature Importance in Logistic Regression Model')
+plt.show()
+
+# ==============================================
+# Section 8: Additional Clustering Methods and Validation
+# ==============================================
+# 8.1: Apply Hierarchical Clustering
+hierarchical = AgglomerativeClustering(n_clusters=2)
+hierarchical_labels = hierarchical.fit_predict(X_scaled)
+
+# 8.2: Visualize Hierarchical Clustering Result
+linkage_matrix = linkage(X_scaled, method='ward')
+plt.figure(figsize=(10, 5))
+dendrogram(linkage_matrix)
+plt.title("Hierarchical Clustering Dendrogram")
+plt.xlabel("Samples")
+plt.ylabel("Distance")
+plt.show()
+
+# 8.3: Cluster Validation
+silhouette_avg = silhouette_score(X_scaled, clusters)
+davies_bouldin = davies_bouldin_score(X_scaled, clusters)
+print(f"Silhouette Score: {silhouette_avg}")
+print(f"Davies-Bouldin Index: {davies_bouldin}")
+
+# 8.4: Analyze Hierarchical Clustering Labels
+unique_hierarchical_clusters = np.unique(hierarchical_labels)
+for cluster in unique_hierarchical_clusters:
+    subset = X_scaled[hierarchical_labels == cluster]
+    print(f"Hierarchical Cluster {cluster} size: {len(subset)}")
+
+# 8.5: Additional Analysis - Cluster Centroids & Distribution
+centroids = kmeans.cluster_centers_
+print("K-Means Centroids:")
+print(centroids)
+
+# Distribution of Clusters
+plt.figure(figsize=(8, 6))
+sns.histplot(clusters, bins=2, kde=True)
+plt.title("Distribution of K-Means Clusters")
+plt.xlabel("Cluster Label")
+plt.ylabel("Count")
 plt.show()
