@@ -7,18 +7,18 @@
 # ==============================================
 
 # Importing required libraries
+import matplotlib.pyplot as plt
+import numpy as np
 import os
 import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
 import seaborn as sns
+from sklearn.cluster import KMeans
+from sklearn.decomposition import PCA
+from sklearn.impute import SimpleImputer
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, f1_score, precision_score, recall_score
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-from sklearn.decomposition import PCA
-from sklearn.cluster import KMeans
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, classification_report
-from sklearn.impute import SimpleImputer
 
 # Get the directory where the script is located
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -88,20 +88,14 @@ X = imputer.fit_transform(X)
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
 
-# ==============================================
-# 3: Apply PCA
-# ==============================================
-
+# 2. Apply PCA
 pca = PCA(n_components=2)
 X_pca = pca.fit_transform(X_scaled)
 
 # Variance explained by each component
 print("\n🔍 PCA Explained Variance:", pca.explained_variance_ratio_)
 
-# ==============================================
-# 3.1: Visualize PCA Result
-# ==============================================
-
+# 3. Visualize PCA Result
 plt.figure(figsize=(8, 6))
 plt.scatter(X_pca[:, 0], X_pca[:, 1], c=y, cmap='coolwarm', alpha=0.7)
 plt.xlabel('Principal Component 1')
@@ -110,9 +104,7 @@ plt.title('PCA Visualization of Cancer Data')
 plt.colorbar(label='Diagnosis (0=Benign, 1=Malignant)')
 plt.show()
 
-# ==============================================
-# 4: Apply K-means Clustering
-# ==============================================
+# 4. Apply K-means Clustering
 
 # Determine optimal K using Elbow Method
 wcss = []
@@ -132,10 +124,7 @@ plt.show()
 kmeans = KMeans(n_clusters=2, random_state=42, n_init=10)
 clusters = kmeans.fit_predict(X_scaled)
 
-# ==============================================
 # 4.1: Visualize Clustering Result
-# ==============================================
-
 plt.figure(figsize=(8, 6))
 plt.scatter(X_pca[:, 0], X_pca[:, 1], c=clusters, cmap='viridis', alpha=0.7)
 plt.xlabel('Principal Component 1')
@@ -144,27 +133,14 @@ plt.title('K-Means Clustering on PCA-Reduced Data')
 plt.colorbar(label='Cluster')
 plt.show()
 
-# ==============================================
 # 5: Train-Test Split
-# ==============================================
-
-# ==============================================
-# 5.1: Model Selection 
-# ==============================================
-
 X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
 
-# ==============================================
-# 5.2: Model Training (Logistic Regression)
-# ==============================================
-
+# 5.1: Model Selection and Training
 model = LogisticRegression()
 model.fit(X_train, y_train)
 
-# ==============================================
-# 5.4: Model Evaluation (Accuracy)
-# ==============================================
-
+# 5.2: Model Evaluation
 y_pred = model.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
 precision = precision_score(y_test, y_pred)
@@ -181,7 +157,7 @@ print(conf_matrix)
 print("Classification Report:")
 print(classification_report(y_test, y_pred))
 
-# Feature Importance
+# 6: Feature Importance
 feature_importance = abs(model.coef_[0])
 feature_names = df.drop(columns=['diagnosis']).columns
 
