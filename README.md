@@ -22,9 +22,9 @@ The repository is organized as follows:
 
 HackBio-Biocoding:
 ## Stage 0: Biodata submission
-## Stage 1: (a) DNA to Protein translation, (b) Population growth curve generation and analysis
-## Stage 3: (a) Amino acid Mutation analysis, (b) Pharmacokinetics RNA Seq Data Analysis
-## Stage 4: Machine Learning for Cancer type classification
+## Stage 1: (a) DNA to Protein translation & Population growth curve generation and analysis
+## Stage 2: (a) Amino acid Mutation analysis, (b) Pharmacokinetics RNA Seq Data Analysis
+## Stage 3: Machine Learning for Cancer type classification
 
 ## Installation
 
