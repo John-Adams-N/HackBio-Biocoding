@@ -1,6 +1,4 @@
-# HackBio-Biocoding Internship 🧬
-
-This repository contains scripts for a Bioinformatics internship program organized in different stages.
+# 🧬 HackBio-Biocoding Internship
 
 ## Table of Contents 🚀
 
@@ -16,29 +14,29 @@ This repository contains scripts for a Bioinformatics internship program organiz
 
 Welcome to the HackBio-Biocoding repository! This repository contains a collection of scripts and resources used during the bioinformatics internship program. The program is divided into different stages, each focusing on a specific aspect of bioinformatics.
 
-## Project Structure 📜
+## 📜 Project Structure
 
 The repository is organized as follows:
 
 HackBio-Biocoding:
-## Stage 0: Biodata submission
+## 🥼 Stage 0: Biodata submission
 Contains emails, short description and LinkedIn handles
 
-## Stage 1: DNA to Protein translation & Population growth curve generation and analysis
+## 🧫 Stage 1: DNA to Protein translation & Population growth curve generation and analysis
 The process of DNA to protein translation is a crucial step in gene expression, where the genetic information stored in DNA is converted into functional proteins. This process begins with transcription, where DNA is transcribed into messenger RNA (mRNA). The mRNA then undergoes translation in the ribosome, where transfer RNA (tRNA) molecules bring specific amino acids corresponding to the three-letter codons on the mRNA. Each amino acid is represented by a three-letter abbreviation and a full name, such as Met (Methionine), Gly (Glycine), Leu (Leucine), and Phe (Phenylalanine). The amino acids are linked together in a polypeptide chain, which then folds into a functional protein.
 
 In biological systems, growth often follows the logistic growth curve, an S-shaped (sigmoidal) model that describes population expansion under resource-limited conditions. It consists of three main phases: the lag phase (slow initial growth as cells adapt), the exponential phase (rapid division due to abundant resources), and the stationary phase (growth slows as resources become scarce, reaching the carrying capacity). This model is widely applied in cell culture studies, microbial growth analysis, and ecological population dynamics.
 
 Together, the study of DNA to protein translation and logistic growth models enhances our understanding of molecular biology, genetics, and population behavior, providing fundamental insights for fields like biotechnology, medicine, and evolutionary studies.
 
-## Stage 2: (a) Amino acid Mutation analysis
+## 🧪 Stage 2: (a) Amino acid Mutation analysis
 This project aimed to analyze the effects of amino acid mutations on protein structure and function, focusing on stability, functionality, and potential disease associations. The analysis began with dataset processing, where mutation data from SIFT and FoldX was loaded, cleaned, and checked for consistency. SIFT scores were used to predict whether a mutation was tolerated or damaging, while FoldX energy changes (ΔΔG) helped assess the impact of mutations on protein structural stability.
 
 The findings revealed that certain amino acids had a higher impact on protein stability, particularly those with more than 100 occurrences, which were often structurally conserved and functionally significant. To enhance interpretation, various visualizations were generated, effectively illustrating mutation distributions and the correlation between mutation frequency and structural importance.
 
 Overall, this analysis provided valuable insights into how mutations influence protein behavior, which is essential for predicting disease-associated mutations, understanding drug resistance mechanisms, and advancing protein engineering. The results can be applied in biomedical research and therapeutic design to identify and potentially mitigate mutations that significantly alter protein function.
 
-##  (b) Pharmacokinetics RNA Seq Data Analysis
+##  💊 (b) Pharmacokinetics RNA Seq Data Analysis
 This project focused on analyzing RNA-seq data to investigate the effects of Compound X on gene expression in a diseased cell line. The dataset contained log2 fold change (Log2FC) values representing differential expression levels between untreated and treated cells, along with statistical significance indicators (p-values and adjusted p-values).
 
 The analysis began with data preprocessing, ensuring proper formatting and consistency. A volcano plot was generated to visualize significant gene expression changes, highlighting both upregulated (Log2FC > 1, p-value < 0.01) and downregulated (Log2FC < -1, p-value < 0.01) genes. Further filtering identified key differentially expressed genes, which were categorized and saved for interpretation.
@@ -47,7 +45,7 @@ Additionally, alternative visualizations such as density plots and bar plots pro
 
 This study offers crucial insights into the pharmacological effects of Compound X, aiding in the identification of potential therapeutic targets and mechanisms of action, which could be useful for drug development and precision medicine applications.
 
-## Stage 3: Unsupervised Machine Learning for Breast Cancer Classification and Subtype Discovery Using PCA and K-Means Clustering 🚀
+## 🎗 Stage 3: Unsupervised Machine Learning for Breast Cancer Classification and Subtype Discovery Using PCA and K-Means Clustering
 Breast cancer is a leading cause of mortality worldwide, necessitating improved diagnostic techniques to classify and analyze tumor subtypes. This project explores unsupervised machine learning methods, specifically Principal Component Analysis (PCA), K-Means clustering, and Hierarchical Clustering, to classify breast cancer cases into benign and malignant categories while identifying potential subclasses within each group.
 
 The dataset undergoes preprocessing, including standardization, missing value imputation, and dimensionality reduction via PCA, to enhance clustering accuracy. The Elbow Method is applied to determine the optimal number of clusters for K-Means, while silhouette scores and Davies-Bouldin indices evaluate cluster quality. Additionally, hierarchical clustering and dendrogram analysis further reveal fine-grained tumor subtypes.
@@ -93,10 +91,9 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Contact 📧
 
-If you have any questions or suggestions, feel free to contact us at johnadams9644@gmail.com
+If you have any questions or suggestions, feel free to contact me at johnadams9644@gmail.com
 
 ---
 
 Thank you for your interest in the HackBio-Biocoding project!
 ```
-
