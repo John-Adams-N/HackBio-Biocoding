@@ -72,6 +72,8 @@ You may also need to install some additional Python packages. You can install th
 pip install -r requirements.txt
 ```markdown
 
+```
+
 ## Usage
 
 Each stage contains a set of scripts that perform specific bioinformatics tasks. To run a script, navigate to the appropriate stage directory and execute the script using Python. For example:
@@ -80,6 +82,8 @@ Each stage contains a set of scripts that perform specific bioinformatics tasks.
 cd Stage1
 python Script1.py
 ```bash
+
+```
 
 ## Contributing
 
@@ -97,10 +101,8 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Contact 📧
 
-If you have any questions or suggestions, feel free to contact me at johnadams9644@gmail.com
+If you have any questions or suggestions, feel free to contact me at <johnadams9644@gmail.com>
 
 ---
 
 Thank you for your interest in the HackBio-Biocoding project!
-
-```
