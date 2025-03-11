@@ -22,9 +22,9 @@ HackBio-Biocoding:
 
 ## 🥼 Stage 0: Biodata submission
 
-Contains emails, short description and LinkedIn handles
+Simple script, contains; emails, short intros and LinkedIn handles
 
-## 🧫 Stage 1: DNA to Protein translation & Population growth curve generation and analysis
+## Stage 1: DNA to Protein translation & Population growth curve generation and analysis 🧫
 
 The process of DNA to protein translation is a crucial step in gene expression, where the genetic information stored in DNA is converted into functional proteins. This process begins with transcription, where DNA is transcribed into messenger RNA (mRNA). The mRNA then undergoes translation in the ribosome, where transfer RNA (tRNA) molecules bring specific amino acids corresponding to the three-letter codons on the mRNA. Each amino acid is represented by a three-letter abbreviation and a full name, such as Met (Methionine), Gly (Glycine), Leu (Leucine), and Phe (Phenylalanine). The amino acids are linked together in a polypeptide chain, which then folds into a functional protein.
 
@@ -32,7 +32,7 @@ In biological systems, growth often follows the logistic growth curve, an S-shap
 
 Together, the study of DNA to protein translation and logistic growth models enhances our understanding of molecular biology, genetics, and population behavior, providing fundamental insights for fields like biotechnology, medicine, and evolutionary studies.
 
-## 🧪 Stage 2: (a) Amino acid Mutation analysis
+## Stage 2: (a) Amino acid Mutation analysis 🧪
 
 This project aimed to analyze the effects of amino acid mutations on protein structure and function, focusing on stability, functionality, and potential disease associations. The analysis began with dataset processing, where mutation data from SIFT and FoldX was loaded, cleaned, and checked for consistency. SIFT scores were used to predict whether a mutation was tolerated or damaging, while FoldX energy changes (ΔΔG) helped assess the impact of mutations on protein structural stability.
 
@@ -40,7 +40,7 @@ The findings revealed that certain amino acids had a higher impact on protein st
 
 Overall, this analysis provided valuable insights into how mutations influence protein behavior, which is essential for predicting disease-associated mutations, understanding drug resistance mechanisms, and advancing protein engineering. The results can be applied in biomedical research and therapeutic design to identify and potentially mitigate mutations that significantly alter protein function.
 
-## 💊 (b) Pharmacokinetics RNA Seq Data Analysis
+## (b) Pharmacokinetics RNA Seq Data Analysis 💊
 
 This project focused on analyzing RNA-seq data to investigate the effects of Compound X on gene expression in a diseased cell line. The dataset contained log2 fold change (Log2FC) values representing differential expression levels between untreated and treated cells, along with statistical significance indicators (p-values and adjusted p-values).
 
@@ -50,7 +50,7 @@ Additionally, alternative visualizations such as density plots and bar plots pro
 
 This study offers crucial insights into the pharmacological effects of Compound X, aiding in the identification of potential therapeutic targets and mechanisms of action, which could be useful for drug development and precision medicine applications.
 
-## 🎗 Stage 3: Unsupervised Machine Learning for Breast Cancer Classification and Subtype Discovery Using PCA and K-Means Clustering
+## Stage 3: Unsupervised Machine Learning for Breast Cancer Classification and Subtype Discovery Using PCA and K-Means Clustering 🎗
 
 Breast cancer is a leading cause of mortality worldwide, necessitating improved diagnostic techniques to classify and analyze tumor subtypes. This project explores unsupervised machine learning methods, specifically Principal Component Analysis (PCA), K-Means clustering, and Hierarchical Clustering, to classify breast cancer cases into benign and malignant categories while identifying potential subclasses within each group.
 
