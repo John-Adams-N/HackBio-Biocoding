@@ -1,4 +1,4 @@
-# 🧬 HackBio-Biocoding Internship
+# HackBio-Biocoding Internship 🧬
 
 ## Table of Contents 🚀
 
